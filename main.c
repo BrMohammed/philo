@@ -7,7 +7,7 @@ static int* creat(var_t *var,char **argv, int argc,struct timeval *current_time)
 	i = 0;
 	var->args = malloc(argc - 1 * sizeof(int));
 	while(argv[++i])
-		var->args[i - 1] = atoi(argv[i]);
+		var->args[i - 1] = ft_atoi(argv[i]);
 	if(var->args[1] < 10)
 	{
 		printf("number to die must be more than 10ms\n");
@@ -42,26 +42,41 @@ void print()
 	printf("%d %d died \n",time,philo);
 }
 
-void philo_sleep()
+void* philosophers()
 {
-
+	printf("is sleeping \n");
+	return (0);
 }
 
 void philo_eat()
 {
-
+	
+}
+void philo_sleep()
+{
+	
 }
 int main(int argc, char** argv)
 {
 	if (argc > 4 && argc <= 6)
 	{
 		struct timeval current_time;
-		var_t var; 
-
-		int i = 0;
-		int *forks;
-		var.args = creat(&var,argv,argc,&current_time);
+		var_t var;
 		
+		var.args = creat(&var,argv,argc,&current_time);
+		pthread_t th[*var.forks];
+		int i = 0;
+		while(i < *var.forks )
+		{
+			pthread_create(&th[i],NULL,&philosophers,NULL);
+			i++;
+		}
+		i = 0;
+		while(i < *var.forks )
+		{
+			pthread_join(th[i],NULL);
+			i++;
+		}
 		
 	}
 	else if(argc > 6)
