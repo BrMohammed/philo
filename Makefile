@@ -10,7 +10,7 @@ PU = git push
 commit = git log --graph --oneline --decorate HEAD^..HEAD
 
 push :
-	#@$(commit)
+	@$(commit)
 	@$(ADD)
 	$(read)
 	$(PU)
