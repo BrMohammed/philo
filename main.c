@@ -13,6 +13,10 @@ static void table_of_forks(var_t *var)
 		var->forks[i] = 1;
 		i++;
 	}
+	// for(int i = 0; var->forks[i]; i++)
+	// 	{
+	// 		printf(" [%d] " ,var->forks[i]);
+	// 	}
 }
 
 static int* creat(var_t *var,char **argv, int argc,struct timeval *current_time)
@@ -74,44 +78,68 @@ void* philosophers(void *var)
 	struct timeval current_time;
 	int philo_number;
 
-	gettimeofday(&current_time, NULL);
+	//gettimeofday(&current_time, NULL);
 	var_t *my_var = (var_t*) var;
 	pthread_mutex_lock (&((var_t*)var)->m_philo_num);
 	*my_var->philo_num = *my_var->philo_num + 1;
 	philo_number = *my_var->philo_num;
+	
 	pthread_mutex_unlock (&my_var->m_philo_num);
 	//while(1)
-////	{
-
-		pthread_mutex_lock (&my_var->forks);
-		if (my_var->forks[philo_number - 1] == 1 )
+	//{
+		if (my_var->forks[philo_number - 1] == 1 && ((my_var->forks[philo_number ] != '\0' && my_var->forks[philo_number] == 1 ) || (my_var->forks[philo_number ] == '\0' && my_var->forks[0] == 1 )))
 		{
-			if(my_var->forks[philo_number] != '\0' && my_var->forks[philo_number] == 1)
+			pthread_mutex_lock (&my_var->m_can_eat);
+			if(my_var->forks[philo_number] != '\0' && my_var->forks[0] == 1)
 			{
-				my_var->forks[philo_number - 1] = 0;
-				my_var->forks[philo_number] = 0;
+				my_var->forks[philo_number - 1] = -1;
+				my_var->forks[philo_number] = -1;
 			}
-			else if(my_var->forks[philo_number] == '\0' && my_var->forks[philo_number] == 1)
+			else if(my_var->forks[philo_number] == '\0' && my_var->forks[0] == 1)
 			{
-				my_var->forks[philo_number - 1] = 0;
-				my_var->forks[0] = 0;
+				my_var->forks[philo_number - 1] = -1;
+				my_var->forks[0] = -1;
 			}
+		
+				printf("fork : ");
+				for(int i = 0; my_var->forks[i]; i++)
+				{
+					printf(" [%d] " ,my_var->forks[i]);
+				}
+				printf("\n");
+			gettimeofday(&current_time, NULL);
+			int time = ((current_time.tv_sec - *my_var->time_to_zero) * 1000) + (current_time.tv_usec - *my_var->utime_to_zero) / 1000;
+			printf("\t%d %d is eating \n\n" ,time,philo_number);
+			//sleep(1);
+			if(my_var->forks[philo_number] != '\0' && my_var->forks[philo_number] == -1)
+			{
+				my_var->forks[philo_number - 1] = 1;
+				my_var->forks[philo_number] = 1;
+			}
+			else if(my_var->forks[philo_number] == '\0' && my_var->forks[philo_number] == -1)
+			{
+				my_var->forks[philo_number - 1] = 1;
+				my_var->forks[0] = 1;
+			}
+			pthread_mutex_unlock (&my_var->m_can_eat);
 		}
-		pthread_mutex_unlock (&my_var->forks);
-		if(my_var->forks[philo_number] != '\0' && my_var->forks[philo_number] == 0)
+		else 
 		{
-			my_var->forks[philo_number - 1] = 1;
-			my_var->forks[philo_number] = 1;
+			gettimeofday(&current_time, NULL);
+			int time1 = ((current_time.tv_sec - *my_var->time_to_zero) * 1000) + (current_time.tv_usec - *my_var->utime_to_zero) / 1000;
+			printf("\t%d %d is slepping \n\n" ,time1,philo_number);
+			//sleep(1);
 		}
-		else if(my_var->forks[philo_number] == '\0' && my_var->forks[philo_number] == 0)
-		{
-			my_var->forks[philo_number - 1] = 1;
-			my_var->forks[0] = 1;
-		}
-
-		int time = ((current_time.tv_sec - *my_var->time_to_zero) * 1000) + (current_time.tv_usec - *my_var->utime_to_zero) / 1000;
-		printf("%d %d is eating \n" ,time,philo_number);
-//	}
+		// 	printf("fork : ");
+		// for(int i = 0; my_var->forks[i]; i++)
+		// {
+		// 	printf(" [%d] " ,my_var->forks[i]);
+		// }
+		// printf("\n");
+		
+		
+	
+	//}
 	
 	return (0);
 }
