@@ -42,9 +42,15 @@ void print()
 	printf("%d %d died \n",time,philo);
 }
 
-void* philosophers()
+void* philosophers(void *var)
 {
-	printf("is sleeping \n");
+	sleep(1);
+	struct timeval current_time;
+	var_t *my_var = (var_t*) var;
+	gettimeofday(&current_time, NULL);
+	int time = ((current_time.tv_sec - *my_var->time_to_zero) * 1000) + (current_time.tv_usec - *my_var->utime_to_zero) / 1000;
+	printf("%d %d is sleeping \n" ,time,*my_var->philo_num);
+	//free(var->philo);
 	return (0);
 }
 
@@ -62,14 +68,16 @@ int main(int argc, char** argv)
 	{
 		struct timeval current_time;
 		var_t var;
-		
 		var.args = creat(&var,argv,argc,&current_time);
 		pthread_t th[*var.forks];
 		int i = 0;
 		while(i < *var.forks )
 		{
-			pthread_create(&th[i],NULL,&philosophers,NULL);
+			var.philo_num =  malloc(sizeof(int));
+			*var.philo_num = i + 1;
+			pthread_create(&th[i],NULL,&philosophers,&var);
 			i++;
+
 		}
 		i = 0;
 		while(i < *var.forks )
@@ -77,7 +85,6 @@ int main(int argc, char** argv)
 			pthread_join(th[i],NULL);
 			i++;
 		}
-		
 	}
 	else if(argc > 6)
 	{

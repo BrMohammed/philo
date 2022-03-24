@@ -13,6 +13,7 @@ typedef struct var_s
     int *forks;
     long *utime_to_zero;
     long *time_to_zero;
+    int *philo_num;
 }var_t;
 
 int	ft_atoi(const char *str);
