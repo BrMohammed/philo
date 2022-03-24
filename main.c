@@ -25,8 +25,7 @@ static int* creat(var_t *var,char **argv, int argc,struct timeval *current_time)
 	*var->utime_to_zero = current_time->tv_usec;
 	var->time_to_zero = malloc(sizeof(long));
 	*var->time_to_zero = current_time->tv_sec;
-	// printf("micro seconds : %ld \n",((current_time.tv_sec - var.time_to_zero) + (current_time.tv_usec - var.utime_to_zero))); // print init
-	// printf("micro seconds : %ld \n",(((current_time.tv_sec - var.time_to_zero) * 1000) + ((current_time.tv_usec - var.utime_to_zero) / 1000)));  // print time
+	var->philo_num =  malloc(sizeof(int));
 	return (var->args);
 }
 
@@ -44,13 +43,21 @@ void print()
 
 void* philosophers(void *var)
 {
-	sleep(1);
 	struct timeval current_time;
-	var_t *my_var = (var_t*) var;
-	gettimeofday(&current_time, NULL);
-	int time = ((current_time.tv_sec - *my_var->time_to_zero) * 1000) + (current_time.tv_usec - *my_var->utime_to_zero) / 1000;
-	printf("%d %d is sleeping \n" ,time,*my_var->philo_num);
-	//free(var->philo);
+	int philo_number;
+	pthread_mutex_lock (&((var_t*)var)->m_philo_num);
+	*((var_t*)var)->philo_num = *((var_t*)var)->philo_num + 1;
+	philo_number = *((var_t*)var)->philo_num;
+	pthread_mutex_unlock (&((var_t*)var)->m_philo_num);
+	while(1)
+	{
+		printf("========= is running ============= \n");
+		sleep(1);
+		gettimeofday(&current_time, NULL);
+		int time = ((current_time.tv_sec - *((var_t*)var)->time_to_zero) * 1000) + (current_time.tv_usec - *((var_t*)var)->utime_to_zero) / 1000;
+		printf("%d %d is sleeping \n" ,time,philo_number);
+	}
+	
 	return (0);
 }
 
@@ -68,23 +75,16 @@ int main(int argc, char** argv)
 	{
 		struct timeval current_time;
 		var_t var;
+		pthread_mutex_init(&var.m_philo_num, NULL);
 		var.args = creat(&var,argv,argc,&current_time);
 		pthread_t th[*var.forks];
 		int i = 0;
-		while(i < *var.forks )
-		{
-			var.philo_num =  malloc(sizeof(int));
-			*var.philo_num = i + 1;
+		while(i++ < *var.forks )
 			pthread_create(&th[i],NULL,&philosophers,&var);
-			i++;
-
-		}
 		i = 0;
-		while(i < *var.forks )
-		{
+		while(i++ < *var.forks )
 			pthread_join(th[i],NULL);
-			i++;
-		}
+		pthread_mutex_destroy(&var.m_philo_num);
 	}
 	else if(argc > 6)
 	{

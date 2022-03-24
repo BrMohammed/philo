@@ -14,6 +14,7 @@ typedef struct var_s
     long *utime_to_zero;
     long *time_to_zero;
     int *philo_num;
+    pthread_mutex_t m_philo_num;
 }var_t;
 
 int	ft_atoi(const char *str);
