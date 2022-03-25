@@ -6,13 +6,14 @@
 # include<string.h>
 # include <pthread.h>
 # include <sys/time.h>
+#   include <unistd.h>
 
 typedef struct var_s
 {
     int *time_to_die;
     int* time_to_eat;
     int* time_to_sleep;
-
+    int *dieing;
     int *args;
     long *utime_to_zero;
     long *time_to_zero;
