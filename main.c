@@ -85,22 +85,23 @@ void* philosophers(void *var)
 	philo_number = *my_var->philo_num;
 	
 	pthread_mutex_unlock (&my_var->m_philo_num);
-	//while(1)
-	//{
-		if (my_var->forks[philo_number - 1] == 1 && ((my_var->forks[philo_number ] != '\0' && my_var->forks[philo_number] == 1 ) || (my_var->forks[philo_number ] == '\0' && my_var->forks[0] == 1 )))
+	// int t =0;
+	// while(t  < 5)
+	// {
+		if ( ((my_var->forks[philo_number ] != '\0' && my_var->forks[philo_number] == 1 ) || (my_var->forks[philo_number ] == '\0' && my_var->forks[0] == 1 )) && my_var->forks[philo_number - 1] == 1)
 		{
-			pthread_mutex_lock (&my_var->m_can_eat);
-			if(my_var->forks[philo_number] != '\0' && my_var->forks[0] == 1)
+			
+			if(my_var->forks[philo_number] != '\0' && my_var->forks[philo_number] == 1 && my_var->forks[philo_number - 1] == 1)
 			{
 				my_var->forks[philo_number - 1] = -1;
 				my_var->forks[philo_number] = -1;
 			}
-			else if(my_var->forks[philo_number] == '\0' && my_var->forks[0] == 1)
+			else if(my_var->forks[philo_number] == '\0' && my_var->forks[0] == 1 && my_var->forks[philo_number - 1] == 1)
 			{
 				my_var->forks[philo_number - 1] = -1;
 				my_var->forks[0] = -1;
 			}
-		
+			pthread_mutex_lock (&my_var->m_can_eat);
 				printf("fork : ");
 				for(int i = 0; my_var->forks[i]; i++)
 				{
@@ -110,7 +111,7 @@ void* philosophers(void *var)
 			gettimeofday(&current_time, NULL);
 			int time = ((current_time.tv_sec - *my_var->time_to_zero) * 1000) + (current_time.tv_usec - *my_var->utime_to_zero) / 1000;
 			printf("\t%d %d is eating \n\n" ,time,philo_number);
-			//sleep(1);
+			usleep(900);
 			if(my_var->forks[philo_number] != '\0' && my_var->forks[philo_number] == -1)
 			{
 				my_var->forks[philo_number - 1] = 1;
@@ -128,18 +129,10 @@ void* philosophers(void *var)
 			gettimeofday(&current_time, NULL);
 			int time1 = ((current_time.tv_sec - *my_var->time_to_zero) * 1000) + (current_time.tv_usec - *my_var->utime_to_zero) / 1000;
 			printf("\t%d %d is slepping \n\n" ,time1,philo_number);
-			//sleep(1);
+			usleep(800);
 		}
-		// 	printf("fork : ");
-		// for(int i = 0; my_var->forks[i]; i++)
-		// {
-		// 	printf(" [%d] " ,my_var->forks[i]);
-		// }
-		// printf("\n");
-		
-		
-	
-	//}
+	// 	t++;
+	// }
 	
 	return (0);
 }
@@ -164,7 +157,10 @@ int main(int argc, char** argv)
 		pthread_t th[*var.philo_cont];
 		int i = 0;
 		while(i++ < *var.philo_cont )
+		{
 			pthread_create(&th[i],NULL,&philosophers,&var);
+			usleep(100);
+		}
 		i = 0;
 		while(i++ < *var.philo_cont )
 			pthread_join(th[i],NULL);

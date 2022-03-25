@@ -7,7 +7,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 
 # This program built for i386-apple-darwin11.3.0
 
-# Make data base, printed on Thu Mar 24 17:00:06 2022
+# Make data base, printed on Fri Mar 25 02:11:02 2022
 
 # Variables
 
@@ -38,17 +38,15 @@ ADD = git add .
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n0000h5m00041d/T/vscode-ipc-afdce267-8487-40a7-9a09-e27f8fe771aa.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n0000h5m00041d/T/vscode-ipc-515f5deb-3342-4bc8-9760-6fc1839cd800.sock
 # environment
 VSCODE_CWD = /
 # environment
-Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.QHL4O5VJiy/Render
+Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.4HuU6DqCCI/Render
 # environment
-PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki
+PATH = /usr/bin:/bin:/usr/sbin:/sbin
 # makefile (from `Makefile', line 10)
 commit = git log --graph --oneline --decorate HEAD^..HEAD
-# environment
-LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
 VSCODE_LOG_STACK = false
 # environment
@@ -58,7 +56,7 @@ ELECTRON_RUN_AS_NODE = 1
 # makefile (from `Makefile', line 5)
 read := @echo "Add Commit Plz !!" && read -p "-> " enter && git commit -m $${enter}
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.VSU3osrto7/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.UcH04aX2IM/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -78,9 +76,7 @@ VSCODE_CODE_CACHE_PATH = /Users/brmohamm/Library/Application Support/Code/Cached
 # environment
 LOGNAME = brmohamm
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
-# environment
-ZSH = /Users/brmohamm/.oh-my-zsh
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
@@ -101,8 +97,6 @@ MAKE_VERSION := 3.81
 USER = brmohamm
 # makefile
 .DEFAULT_GOAL := push
-# environment
-LESS = -R
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # default
@@ -110,6 +104,9 @@ MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
 # default
 .VARIABLES := 
 # environment
+ 
+make: *** No rule to make target `all'.  Stop.
+ 
 TMPDIR = /var/folders/zz/zyxvpxvq6csfxvn_n0000h5m00041d/T/
 # automatic
 *F = $(notdir $*)
@@ -122,21 +119,23 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.microsoft.VSCode.1236
+XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000002.Electron
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
 +F = $(notdir $+)
 # environment
 __CF_USER_TEXT_ENCODING = 0x102D:0x0:0x0
+# environment
+COMMAND_MODE = unix2003
 # default
 MAKEFILES := 
 # automatic
 <F = $(notdir $<)
 # environment
-PAGER = less
-# environment
 LC_ALL = C
+# environment
+SECURITYSESSIONID = 186a8
 # automatic
 ^F = $(notdir $^)
 # default
@@ -148,9 +147,9 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 3520
+VSCODE_PID = 9369
 # variable set hash-table stats:
-# Load=69/1024=7%, Rehash=0, Collisions=1/93=1%
+# Load=67/1024=7%, Rehash=0, Collisions=1/91=1%
 
 # Pattern-specific Variable Values
 
@@ -158,9 +157,9 @@ VSCODE_PID = 3520
 
 # Directories
 
-# . (device 16777227, inode 2357697): 9 files, no impossibilities.
+# . (device 16777227, inode 2357697): 11 files, no impossibilities.
 
-# 9 files, no impossibilities in 1 directories.
+# 11 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -222,8 +221,6 @@ Makefile:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Thu Mar 24 17:00:06 2022
+# Finished Make data base on Fri Mar 25 02:11:02 2022
 
- 
-make: *** No rule to make target `all'.  Stop.
  
