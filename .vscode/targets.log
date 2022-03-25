@@ -6,8 +6,11 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
+ 
+make: *** No rule to make target `all'.  Stop.
+ 
 
-# Make data base, printed on Fri Mar 25 20:40:09 2022
+# Make data base, printed on Fri Mar 25 22:58:07 2022
 
 # Variables
 
@@ -38,7 +41,7 @@ ADD = git add .
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n0000h5m00041d/T/vscode-ipc-304bc0d7-ab6b-4261-9cd9-f73fb4b0dd45.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n0000h5m00041d/T/vscode-ipc-99ed1156-f5a2-4dd1-afbf-0a7e06ed1edd.sock
 # environment
 VSCODE_CWD = /
 # environment
@@ -148,7 +151,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 19274
+VSCODE_PID = 50205
 # variable set hash-table stats:
 # Load=69/1024=7%, Rehash=0, Collisions=1/93=1%
 
@@ -158,9 +161,9 @@ VSCODE_PID = 19274
 
 # Directories
 
-# . (device 16777227, inode 2357697): 10 files, no impossibilities.
+# . (device 16777227, inode 2357697): 11 files, no impossibilities.
 
-# 10 files, no impossibilities in 1 directories.
+# 11 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -222,8 +225,6 @@ Makefile:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Fri Mar 25 20:40:09 2022
+# Finished Make data base on Fri Mar 25 22:58:07 2022
 
- 
-make: *** No rule to make target `all'.  Stop.
  

@@ -8,13 +8,13 @@ static void table_of_forks_and_dieing(var_t *var)
 	var->forks = malloc(number_of_forks * sizeof(pthread_mutex_t));
 
 	var->dieing = malloc(number_of_forks * sizeof(int));
-	var->dieing[number_of_forks] = '\0';
 	i = 0;
-	while(var->dieing[i])
+	while(i < number_of_forks)
 	{
 		var->dieing[i] = 0;
 		i++;
 	}
+
 
 }
 
@@ -50,6 +50,7 @@ static int* creat(var_t *var,char **argv, int argc,struct timeval *current_time)
 	*var->time_to_eat =  var->args[2] * 1000;
 	*var->time_to_sleep =  var->args[3] * 1000;
 	table_of_forks_and_dieing(var);
+	
 	var->philo_cont = &var->args[0];
 	gettimeofday(current_time, NULL);
 	*var->utime_to_zero = current_time->tv_usec;
@@ -106,7 +107,7 @@ void* philo_watch(void *var)
 	struct timeval current_time;
 	int time;
 
-	int test;
+	int real_time;
 
 	int time_to_zero;
 	int time_usec_to_die_to_zero;
@@ -126,18 +127,31 @@ void* philo_watch(void *var)
 	while(1)
 	{
 		gettimeofday(&current_time, NULL);
+		real_time = ((current_time.tv_sec - time_sec_to_di_to_zero2) * 1000) + ((current_time.tv_usec - time_usec_to_die_to_zero2) / 1000);
 		time = ((current_time.tv_sec - time_sec_to_di_to_zero) * 1000) + ((current_time.tv_usec - time_usec_to_die_to_zero) / 1000);
-		time_to_zero++;
-		test = ((current_time.tv_sec - time_sec_to_di_to_zero2) * 1000) + ((current_time.tv_usec - time_usec_to_die_to_zero2) / 1000);
-		// if(time_to_zero == 1000)
-		// 	time_to_zero = 0;
-		// if(time == 1000)
-		// {
-		// 	time_usec_to_die_to_zero = current_time.tv_usec;
-		// 	time_sec_to_di_to_zero = current_time.tv_sec;
-		// }
+		time_to_zero += time*1.26;
+		int i = 0;
+		while(i < *my_var->philo_cont)
+		{
+			my_var->dieing[i] += time*1.26;
+			i++;
+		}
+		time_usec_to_die_to_zero = current_time.tv_usec;
+		time_sec_to_di_to_zero = current_time.tv_sec;
+		usleep(1000);
+		i = 0;
+		while(i < *my_var->philo_cont)
+		{
+			if(my_var->dieing[i] == *my_var->time_to_die / 1000)
+			{
+				printf("%d %d died\n",real_time,i + 1);
+				i++;
+				exit(0);
+			}
+			i++;
+		}
 		
-		printf("time : %d  %d\n" ,time_to_zero,test);
+		
 	}
 	return(0);
 }
@@ -153,9 +167,9 @@ void* philosophers(void *var)
 	philo_number = *my_var->philo_num;
 	pthread_mutex_unlock (&my_var->m_philo_num);
 	
-	int t = 0;
-	// while(t  < 2)
-	// {
+	//int t = 0;
+	while(1)
+	{
 		/*lock mutex*/
 			pthread_mutex_lock (&my_var->forks[philo_number -1]);
 			if(philo_number == *my_var->philo_cont)
@@ -165,7 +179,8 @@ void* philosophers(void *var)
 			/**/
 
 			philo_eat(my_var,philo_number);
-			//my_var->dieing[philo_number - 1] = 0;
+			my_var->dieing[philo_number - 1] = 0;
+			
 			/*unlock mutex*/
 			pthread_mutex_unlock (&my_var->forks[philo_number -1]);
 			if(philo_number == *my_var->philo_cont)
@@ -175,8 +190,8 @@ void* philosophers(void *var)
 			/**/
 
 			philo_sleep(my_var,philo_number);
-			t++;
-	// }
+			//t++;
+	}
 	
 	return (0);
 }
