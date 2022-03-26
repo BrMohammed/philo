@@ -94,65 +94,39 @@ static void philo_eat(var_t *my_var,int philo_number)
 
 void philo_sleep(var_t *my_var,int philo_number)
 {
-	int time;
 
-	time = gettime(my_var);
-	printf("%d %d is slepping \n" ,time,philo_number);
+	printf("%d %d is slepping \n" ,gettime(my_var),philo_number);
 	usleep(*my_var->time_to_sleep);
-	time = gettime(my_var);
-	printf("%d %d is thinking \n" ,time,philo_number);
+	printf("%d %d is thinking \n" ,gettime(my_var),philo_number);
 }
 void* philo_watch(void *var)
 {
 	var_t *my_var = (var_t*) var;
 	struct timeval current_time;
-	int time;
-
-	int real_time;
+	int i;
 
 	int time_to_zero;
 	int time_usec_to_die_to_zero;
 	int time_sec_to_di_to_zero;
 
-	int time_usec_to_die_to_zero2;
-	int time_sec_to_di_to_zero2;
-
 	gettimeofday(&current_time, NULL);
-
 	time_usec_to_die_to_zero = current_time.tv_usec;
 	time_sec_to_di_to_zero = current_time.tv_sec;
-
-
-	time_usec_to_die_to_zero2 = current_time.tv_usec;
-	time_sec_to_di_to_zero2 = current_time.tv_sec; 
 	while(1)
 	{
 		gettimeofday(&current_time, NULL);
-		real_time = ((current_time.tv_sec - time_sec_to_di_to_zero2) * 1000) + ((current_time.tv_usec - time_usec_to_die_to_zero2) / 1000);
-		time = ((current_time.tv_sec - time_sec_to_di_to_zero) * 1000) + ((current_time.tv_usec - time_usec_to_die_to_zero) / 1000);
-		time_to_zero += time*1.26;
-		int i = 0;
-		while(i < *my_var->philo_cont && *my_var->philo_cont != -1)
-		{
-			my_var->dieing[i] += time*1.26;
-			i++;
-		}
-		time_usec_to_die_to_zero = current_time.tv_usec;
-		time_sec_to_di_to_zero = current_time.tv_sec;
 		usleep(1000);
 		i = 0;
-		while(i < *my_var->philo_cont && *my_var->philo_cont != -1)
+		while(i < *my_var->philo_cont && my_var->dieing[i] != -1)
 		{
-			if(my_var->dieing[i] == *my_var->time_to_die / 1000)
+			if((gettime(my_var) - my_var->dieing[i]) >= (*my_var->time_to_die / 1000))
 			{
-				printf("%d %d died\n",real_time,i + 1);
+				printf("%d %d died\n",gettime(my_var),i + 1);
 				i++;
 				exit(0);
 			}
 			i++;
 		}
-		
-		
 	}
 	return(0);
 }
@@ -175,30 +149,27 @@ void* philosophers(void *var)
 		{
 			if(eating == *my_var->philo_must_eat)
 			{
+				my_var->dieing[philo_number - 1]  = -1;
 				break;
 			}
 		}
 		/*lock mutex*/
 			pthread_mutex_lock (&my_var->forks[philo_number -1]);
-			time = gettime(my_var);
-			printf("%d %d has taken a fork \n" ,time,philo_number);
+			printf("%d %d has taken a fork \n" ,gettime(my_var),philo_number);
 			if(philo_number == *my_var->philo_cont)
 			{
-				time = gettime(my_var);
 				pthread_mutex_lock (&my_var->forks[0]);
-				printf("%d %d has taken a fork \n" ,time,philo_number);
+				printf("%d %d has taken a fork \n" ,gettime(my_var),philo_number);
 			}
 			else
 			{
-					time = gettime(my_var);
-					pthread_mutex_lock (&my_var->forks[philo_number]);
-					printf("%d %d has taken a fork \n" ,time,philo_number);
+				pthread_mutex_lock (&my_var->forks[philo_number]);
+				printf("%d %d has taken a fork \n" ,gettime(my_var),philo_number);
 			}
 				
 			/**/
-
+			my_var->dieing[philo_number - 1] = gettime(my_var);
 			philo_eat(my_var,philo_number);
-			my_var->dieing[philo_number - 1] = 0;
 			eating++;
 			
 			/*unlock mutex*/

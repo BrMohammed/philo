@@ -4,6 +4,5 @@ git log --graph --oneline --decorate HEAD^..HEAD
 git add .
 echo "Add Commit Plz !!" && read -p "-> " enter && git commit -m ${enter}
 git push
- 
 make: Leaving directory `/Users/brmohamm/Desktop/philo'
  
