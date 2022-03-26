@@ -1,4 +1,5 @@
 #include "philo.h"
+
 static void table_of_forks_and_dieing(var_t *var)
 {
 	int i;
@@ -14,8 +15,6 @@ static void table_of_forks_and_dieing(var_t *var)
 		var->dieing[i] = 0;
 		i++;
 	}
-
-
 }
 
 static int* creat(var_t *var,char **argv, int argc,struct timeval *current_time)
@@ -32,12 +31,6 @@ static int* creat(var_t *var,char **argv, int argc,struct timeval *current_time)
 		printf("number to die must be more than 10ms\n");
 		exit(0);
 	}
-	if(var->args[0] < 2)
-	{
-		printf("number of philo must be more than 1 \n");
-		exit(0);
-	}
-	///alloc///
 	var->time_to_die = malloc(sizeof(int));
 	var->time_to_eat = malloc(sizeof(int));
 	var->time_to_sleep = malloc(sizeof(int));
@@ -46,8 +39,6 @@ static int* creat(var_t *var,char **argv, int argc,struct timeval *current_time)
 	var->time_to_zero = malloc(sizeof(long));
 	var->philo_num =  malloc(sizeof(int));
 	var->philo_must_eat =  malloc(sizeof(int));
-
-
 	*var->time_to_die =  var->args[1] * 1000;
 	*var->time_to_eat =  var->args[2] * 1000;
 	*var->time_to_sleep =  var->args[3] * 1000;
@@ -58,23 +49,9 @@ static int* creat(var_t *var,char **argv, int argc,struct timeval *current_time)
 	gettimeofday(current_time, NULL);
 	*var->utime_to_zero = current_time->tv_usec;
 	*var->time_to_zero = current_time->tv_sec;
-	
 	return (var->args);
 }
 
-
-
-void print()
-{
-	int time;
-	int philo;
-
-	printf("%d %d has taken a fork \n",time,philo);
-	printf("%d %d is eating \n",time,philo);
-	printf("%d %d is sleeping \n",time,philo);
-	printf("%d %d is thinking \n",time,philo);
-	printf("%d %d died \n",time,philo);
-}
 static int gettime(var_t *my_var)
 {
 	int time;
@@ -83,29 +60,25 @@ static int gettime(var_t *my_var)
 	time = ((current_time.tv_sec - *my_var->time_to_zero) * 1000) + ((current_time.tv_usec - *my_var->utime_to_zero) / 1000);
 	return(time);
 }
+
 static void philo_eat(var_t *my_var,int philo_number)
 {
-	int time;
-
-	time = gettime(my_var);
-	printf("%d %d is eating \n" ,time,philo_number);
+	printf("%d %d is eating \n" ,gettime(my_var),philo_number);
 	usleep(*my_var->time_to_eat);
 }
 
 void philo_sleep(var_t *my_var,int philo_number)
 {
-
 	printf("%d %d is slepping \n" ,gettime(my_var),philo_number);
 	usleep(*my_var->time_to_sleep);
 	printf("%d %d is thinking \n" ,gettime(my_var),philo_number);
 }
+
 void* philo_watch(void *var)
 {
 	var_t *my_var = (var_t*) var;
 	struct timeval current_time;
 	int i;
-
-	int time_to_zero;
 	int time_usec_to_die_to_zero;
 	int time_sec_to_di_to_zero;
 
@@ -122,7 +95,6 @@ void* philo_watch(void *var)
 			if((gettime(my_var) - my_var->dieing[i]) >= (*my_var->time_to_die / 1000))
 			{
 				printf("%d %d died\n",gettime(my_var),i + 1);
-				i++;
 				exit(0);
 			}
 			i++;
@@ -132,16 +104,16 @@ void* philo_watch(void *var)
 }
 void* philosophers(void *var)
 {
-	
 	int philo_number;
 	int time;
-	var_t *my_var = (var_t*) var;
+	var_t *my_var;
 	int eating;
+
+	my_var = (var_t*) var;
 	pthread_mutex_lock (&my_var->m_philo_num);
 	*my_var->philo_num = *my_var->philo_num + 1;
 	philo_number = *my_var->philo_num;
 	pthread_mutex_unlock (&my_var->m_philo_num);
-	
 	eating = 0;
 	while(1)
 	{
@@ -153,34 +125,27 @@ void* philosophers(void *var)
 				break;
 			}
 		}
-		/*lock mutex*/
-			pthread_mutex_lock (&my_var->forks[philo_number -1]);
+		pthread_mutex_lock (&my_var->forks[philo_number -1]);
+		printf("%d %d has taken a fork \n" ,gettime(my_var),philo_number);
+		if(philo_number == *my_var->philo_cont)
+		{
+			pthread_mutex_lock (&my_var->forks[0]);
 			printf("%d %d has taken a fork \n" ,gettime(my_var),philo_number);
-			if(philo_number == *my_var->philo_cont)
-			{
-				pthread_mutex_lock (&my_var->forks[0]);
-				printf("%d %d has taken a fork \n" ,gettime(my_var),philo_number);
-			}
-			else
-			{
-				pthread_mutex_lock (&my_var->forks[philo_number]);
-				printf("%d %d has taken a fork \n" ,gettime(my_var),philo_number);
-			}
-				
-			/**/
-			my_var->dieing[philo_number - 1] = gettime(my_var);
-			philo_eat(my_var,philo_number);
-			eating++;
-			
-			/*unlock mutex*/
-			pthread_mutex_unlock (&my_var->forks[philo_number -1]);
-			if(philo_number == *my_var->philo_cont)
-				pthread_mutex_unlock (&my_var->forks[0]);
-			else
-				pthread_mutex_unlock (&my_var->forks[philo_number]);
-			/**/
-
-			philo_sleep(my_var,philo_number);
+		}
+		else
+		{
+			pthread_mutex_lock (&my_var->forks[philo_number]);
+			printf("%d %d has taken a fork \n" ,gettime(my_var),philo_number);
+		}
+		my_var->dieing[philo_number - 1] = gettime(my_var);
+		philo_eat(my_var,philo_number);
+		eating++;
+		pthread_mutex_unlock (&my_var->forks[philo_number -1]);
+		if(philo_number == *my_var->philo_cont)
+			pthread_mutex_unlock (&my_var->forks[0]);
+		else
+			pthread_mutex_unlock (&my_var->forks[philo_number]);
+		philo_sleep(my_var,philo_number);
 	}
 	
 	return (0);
