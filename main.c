@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/27 00:46:35 by brmohamm          #+#    #+#             */
+/*   Updated: 2022/03/27 00:50:38 by brmohamm         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 static void	table_of_forks_and_dieing(var_t *var)
@@ -164,6 +176,11 @@ void continue_of_main(pthread_t *th,pthread_t wth,var_t *var)
 {
 	int i;
 
+	while(i++ < *var->philo_cont )
+	{
+		pthread_create(&th[i],NULL,&philosophers,var);
+		usleep(100);
+	}
 	i = 0;
 	while(i++ < *var->philo_cont )
 		pthread_join(th[i],NULL);
@@ -192,11 +209,6 @@ int	main(int argc, char **argv )
 			pthread_mutex_init(&var.forks[i], NULL);
 		i = 0;
 		pthread_create(&wth,NULL,&philo_watch,&var);
-		while(i++ < *var.philo_cont )
-		{
-			pthread_create(&th[i],NULL,&philosophers,&var);
-			usleep(100);
-		}
 		continue_of_main(th,wth,&var);
 	}
 	else if(argc > 6)
