@@ -13,6 +13,7 @@ typedef struct var_s
     int *time_to_die;
     int* time_to_eat;
     int* time_to_sleep;
+    int* philo_must_eat;
     int *dieing;
     int *args;
     long *utime_to_zero;

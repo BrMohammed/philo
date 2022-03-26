@@ -23,7 +23,8 @@ static int* creat(var_t *var,char **argv, int argc,struct timeval *current_time)
 	int i;
 	
 	i = 0;
-	var->args = malloc(argc - 1 * sizeof(int));
+	var->args = malloc(argc * sizeof(int));
+	var->args[argc] = '\0';
 	while(argv[++i])
 		var->args[i - 1] = ft_atoi(argv[i]);
 	if(var->args[1] < 10)
@@ -44,13 +45,15 @@ static int* creat(var_t *var,char **argv, int argc,struct timeval *current_time)
 	var->philo_cont = malloc(sizeof(int));
 	var->time_to_zero = malloc(sizeof(long));
 	var->philo_num =  malloc(sizeof(int));
+	var->philo_must_eat =  malloc(sizeof(int));
 
 
 	*var->time_to_die =  var->args[1] * 1000;
 	*var->time_to_eat =  var->args[2] * 1000;
 	*var->time_to_sleep =  var->args[3] * 1000;
+	if(var->args[4])
+		*var->philo_must_eat = var->args[4];
 	table_of_forks_and_dieing(var);
-	
 	var->philo_cont = &var->args[0];
 	gettimeofday(current_time, NULL);
 	*var->utime_to_zero = current_time->tv_usec;
@@ -84,8 +87,6 @@ static void philo_eat(var_t *my_var,int philo_number)
 {
 	int time;
 
-	time = gettime(my_var);
-	printf("%d %d has taken a fork \n" ,time,philo_number);
 	time = gettime(my_var);
 	printf("%d %d is eating \n" ,time,philo_number);
 	usleep(*my_var->time_to_eat);
@@ -131,7 +132,7 @@ void* philo_watch(void *var)
 		time = ((current_time.tv_sec - time_sec_to_di_to_zero) * 1000) + ((current_time.tv_usec - time_usec_to_die_to_zero) / 1000);
 		time_to_zero += time*1.26;
 		int i = 0;
-		while(i < *my_var->philo_cont)
+		while(i < *my_var->philo_cont && *my_var->philo_cont != -1)
 		{
 			my_var->dieing[i] += time*1.26;
 			i++;
@@ -140,7 +141,7 @@ void* philo_watch(void *var)
 		time_sec_to_di_to_zero = current_time.tv_sec;
 		usleep(1000);
 		i = 0;
-		while(i < *my_var->philo_cont)
+		while(i < *my_var->philo_cont && *my_var->philo_cont != -1)
 		{
 			if(my_var->dieing[i] == *my_var->time_to_die / 1000)
 			{
@@ -161,25 +162,44 @@ void* philosophers(void *var)
 	int philo_number;
 	int time;
 	var_t *my_var = (var_t*) var;
-
+	int eating;
 	pthread_mutex_lock (&my_var->m_philo_num);
 	*my_var->philo_num = *my_var->philo_num + 1;
 	philo_number = *my_var->philo_num;
 	pthread_mutex_unlock (&my_var->m_philo_num);
 	
-	//int t = 0;
+	eating = 0;
 	while(1)
 	{
+		if(*my_var->philo_must_eat)
+		{
+			if(eating == *my_var->philo_must_eat)
+			{
+				break;
+			}
+		}
 		/*lock mutex*/
 			pthread_mutex_lock (&my_var->forks[philo_number -1]);
+			time = gettime(my_var);
+			printf("%d %d has taken a fork \n" ,time,philo_number);
 			if(philo_number == *my_var->philo_cont)
+			{
+				time = gettime(my_var);
 				pthread_mutex_lock (&my_var->forks[0]);
+				printf("%d %d has taken a fork \n" ,time,philo_number);
+			}
 			else
-				pthread_mutex_lock (&my_var->forks[philo_number]);
+			{
+					time = gettime(my_var);
+					pthread_mutex_lock (&my_var->forks[philo_number]);
+					printf("%d %d has taken a fork \n" ,time,philo_number);
+			}
+				
 			/**/
 
 			philo_eat(my_var,philo_number);
 			my_var->dieing[philo_number - 1] = 0;
+			eating++;
 			
 			/*unlock mutex*/
 			pthread_mutex_unlock (&my_var->forks[philo_number -1]);
@@ -190,7 +210,6 @@ void* philosophers(void *var)
 			/**/
 
 			philo_sleep(my_var,philo_number);
-			//t++;
 	}
 	
 	return (0);
@@ -219,13 +238,14 @@ int main(int argc, char** argv)
 		while(i++ < *var.philo_cont )
 		{
 			pthread_create(&th[i],NULL,&philosophers,&var);
-			usleep(1);
+			usleep(100);
 		}
 		i = 0;
 		while(i++ < *var.philo_cont )
 		{
 			pthread_join(th[i],NULL);
 		}
+		pthread_detach(wth);
 		pthread_join(wth,NULL);
 		pthread_mutex_destroy(&var.m_philo_num);
 		i = 0;
@@ -234,7 +254,6 @@ int main(int argc, char** argv)
 			pthread_mutex_destroy(&var.forks[i]);
 			i++;
 		}
-		
 	}
 	else if(argc > 6)
 	{
