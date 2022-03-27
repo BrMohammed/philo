@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 17:46:26 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/27 18:01:42 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/27 20:05:01 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,25 @@ int	philosophers_continue_the_code(t_var *my_var, int philo_number, int eating)
 	if (*my_var->is_died == 1)
 		return (0);
 	print_msg("has taken a fork", my_var, philo_number);
+	if (*my_var->philo_cont == 1)
+	{
+		while(1)
+		{
+			if (*my_var->is_died == 1)
+				return (0);
+		}
+	}
 	if (philo_number == *my_var->philo_cont)
 	{
+		if (*my_var->is_died == 1)
+		return (0);
 		pthread_mutex_lock (&my_var->forks[0]);
 		print_msg("has taken a fork", my_var, philo_number);
 	}
 	else
 	{
+		if (*my_var->is_died == 1)
+		return (0);
 		pthread_mutex_lock (&my_var->forks[philo_number]);
 		print_msg("has taken a fork", my_var, philo_number);
 	}

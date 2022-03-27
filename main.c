@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 00:46:35 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/27 17:57:28 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/27 20:04:37 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	*philo_loop(t_var *my_var, int philo_number, int eating)
 void	*philosophers(void *var)
 {
 	int		philo_number;
-	int		time;
 	t_var	*my_var;
 	int		eating;
 
@@ -84,7 +83,6 @@ void	parse(pthread_t *th, pthread_t wth, t_var *var)
 
 int	main(int argc, char **argv)
 {
-	int					i;
 	struct timeval		current_time;
 	pthread_t			*th;
 	pthread_t			wth;
@@ -92,6 +90,7 @@ int	main(int argc, char **argv)
 
 	if (argc > 4 && argc <= 6)
 	{
+		wth = NULL;
 		th = malloc(ft_atoi(argv[1]) * sizeof(pthread_mutex_t));
 		var.args = creat(&var, argv, argc, &current_time);
 		parse(th, wth, &var);

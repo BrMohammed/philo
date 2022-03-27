@@ -7,10 +7,10 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 
 # This program built for i386-apple-darwin11.3.0
  
-make: *** No rule to make target `all'.  Stop.
+make: *** No rule to make target `main.o', needed by `philo'.  Stop.
  
 
-# Make data base, printed on Sun Mar 27 15:14:01 2022
+# Make data base, printed on Sun Mar 27 20:02:22 2022
 
 # Variables
 
@@ -34,21 +34,23 @@ SHELL = /bin/sh
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
 _ = /usr/bin/make
+# makefile (from `Makefile', line 3)
+CFLAGS = -Wall -Wextra -Werror
 # makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
-# makefile (from `Makefile', line 3)
+# makefile (from `Makefile', line 21)
 ADD = git add .
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n0000h5m00041d/T/vscode-ipc-9e87ba2f-dae0-4d45-9ce4-1368ddf59c21.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n0000h5m00041d/T/vscode-ipc-8766f97b-f31a-4f60-87ec-7bdcbba11165.sock
 # environment
 VSCODE_CWD = /
 # environment
-Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.pizNkS2NNm/Render
+Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.ZCFcnBtGTq/Render
 # environment
-PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki
-# makefile (from `Makefile', line 10)
+PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Frameworks/Mono.framework/Versions/Current/Commands
+# makefile (from `Makefile', line 28)
 commit = git log --graph --oneline --decorate HEAD^..HEAD
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
@@ -58,10 +60,10 @@ VSCODE_LOG_STACK = false
 ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
-# makefile (from `Makefile', line 5)
+# makefile (from `Makefile', line 23)
 read := @echo "Add Commit Plz !!" && read -p "-> " enter && git commit -m $${enter}
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.qiweuJ30wu/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.xL52MDx0xh/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -96,14 +98,18 @@ MAKE = $(MAKE_COMMAND)
 MAKECMDGOALS := all
 # environment
 SHLVL = 1
-# makefile (from `Makefile', line 8)
+# makefile (from `Makefile', line 26)
 PU = git push
+# makefile (from `Makefile', line 2)
+CC = gcc
 # default
 MAKE_VERSION := 3.81
 # environment
 USER = brmohamm
 # makefile
-.DEFAULT_GOAL := push
+.DEFAULT_GOAL := philo
+# makefile (from `Makefile', line 1)
+NAME = philo
 # environment
 LESS = -R
 # automatic
@@ -125,13 +131,15 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.microsoft.VSCode.1180
+XPC_SERVICE_NAME = com.microsoft.VSCode.1220
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
 +F = $(notdir $+)
 # environment
 __CF_USER_TEXT_ENCODING = 0x102D:0x0:0x0
+# makefile (from `Makefile', line 5)
+objets = $(FILES:.c=.o)
 # default
 MAKEFILES := 
 # automatic
@@ -151,9 +159,11 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 76841
+VSCODE_PID = 9195
+# makefile (from `Makefile', line 4)
+FILES = main.c ft_atoi.c extra.c extra2.c
 # variable set hash-table stats:
-# Load=69/1024=7%, Rehash=0, Collisions=1/93=1%
+# Load=74/1024=7%, Rehash=0, Collisions=5/102=5%
 
 # Pattern-specific Variable Values
 
@@ -161,9 +171,9 @@ VSCODE_PID = 76841
 
 # Directories
 
-# . (device 16777227, inode 2357697): 10 files, no impossibilities.
+# . (device 16777227, inode 2357697): 12 files, no impossibilities.
 
-# 10 files, no impossibilities in 1 directories.
+# 12 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -171,14 +181,23 @@ VSCODE_PID = 76841
 
 # Files
 
-# Not a target:
-all:
+all: philo
 #  Command-line target.
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has not been updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+philo: main.o ft_atoi.o extra.o extra2.o
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 8):
+	$(CC) $(CFLAGS) -o $(NAME) $(FILES)
+	
 
 # Not a target:
 .SUFFIXES:
@@ -190,7 +209,7 @@ push:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 13):
+#  commands to execute (from `Makefile', line 31):
 	@$(commit)
 	@$(ADD)
 	$(read)
@@ -200,11 +219,25 @@ push:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-03-23 23:44:13
+#  Last modified 2022-03-27 20:01:41
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+extra2.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+fclean: clean
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 16):
+	$(RM) $(NAME)
+	
 
 # Not a target:
 .DEFAULT:
@@ -212,8 +245,41 @@ Makefile:
 #  Modification time never checked.
 #  File has not been updated.
 
+re: fclean all
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 13):
+	$(RM) $(objets) $(objets_b)
+	
+
+# Not a target:
+main.o:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has not been updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+ft_atoi.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+extra.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
 # files hash-table stats:
-# Load=5/1024=0%, Rehash=0, Collisions=0/17=0%
+# Load=13/1024=1%, Rehash=0, Collisions=0/34=0%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -225,6 +291,6 @@ Makefile:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sun Mar 27 15:14:01 2022
+# Finished Make data base on Sun Mar 27 20:02:22 2022
 
  
