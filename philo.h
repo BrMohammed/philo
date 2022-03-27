@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 00:46:43 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/27 17:58:13 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/27 20:43:10 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,5 @@ int		gettime(t_var *my_var);
 int		*creat(t_var *var, char **argv, int argc, struct timeval *current_time);
 int		philosophers_continue_the_code(t_var *my_var,
 			int philo_number, int eating);
+int		condetion_of_one_philo(t_var *my_var);
 #endif

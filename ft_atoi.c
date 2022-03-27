@@ -6,11 +6,24 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 00:46:47 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/27 00:46:48 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/27 20:42:09 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	condetion_of_one_philo(t_var *my_var)
+{
+	if (*my_var->philo_cont == 1)
+	{
+		while (1)
+		{
+			if (*my_var->is_died == 1)
+				return (1);
+		}
+	}
+	return (0);
+}
 
 static long	loop(const char *str, int i, int n)
 {

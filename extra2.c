@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 17:46:26 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/27 20:16:30 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/27 20:42:52 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,18 @@
 int	philosophers_continue_the_code(t_var *my_var, int philo_number, int eating)
 {
 	pthread_mutex_lock (&my_var->forks[philo_number -1]);
-	if (*my_var->is_died == 1)
+	print_msg("has taken a fork1", my_var, philo_number);
+	if (condetion_of_one_philo(my_var) == 1)
 		return (0);
-	print_msg("has taken a fork", my_var, philo_number);
-	if (*my_var->philo_cont == 1)
-	{
-		while(1)
-		{
-			if (*my_var->is_died == 1)
-				return (0);
-		}
-	}
 	if (philo_number == *my_var->philo_cont)
 	{
-		if (*my_var->is_died == 1)
-		return (0);
 		pthread_mutex_lock (&my_var->forks[0]);
-		print_msg("has taken a fork", my_var, philo_number);
+		print_msg("has taken a fork2", my_var, philo_number);
 	}
 	else
 	{
-		if (*my_var->is_died == 1)
-		return (0);
 		pthread_mutex_lock (&my_var->forks[philo_number]);
-		print_msg("has taken a fork", my_var, philo_number);
+		print_msg("has taken a fork002", my_var, philo_number);
 	}
 	my_var->dieing[philo_number - 1] = gettime(my_var);
 	philo_eat(my_var, philo_number);
@@ -60,9 +48,7 @@ void	*philo_eat(t_var *my_var, int philo_number)
 	print_msg("is eating", my_var, philo_number);
 	i = gettime(my_var);
 	while (gettime(my_var) - i < (*my_var->time_to_eat))
-		usleep(100);
-	if (*my_var->is_died == 1)
-		return (0);
+		usleep(10);
 	return (0);
 }
 
@@ -75,12 +61,7 @@ void	*philo_sleep(t_var *my_var, int philo_number)
 	print_msg("is slepping", my_var, philo_number);
 	i = gettime(my_var);
 	while (gettime(my_var) - i < *my_var->time_to_sleep)
-		usleep(100);
-	if (*my_var->is_died == 1)
-	{
-		usleep(100);
-		return (0);
-	}
+		usleep(10);
 	print_msg("is thinking", my_var, philo_number);
 	return (0);
 }
