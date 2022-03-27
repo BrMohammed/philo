@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 00:46:35 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/27 17:08:43 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/27 17:15:54 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static void* philo_eat(var_t *my_var,int philo_number)
 			return (0);
 	print_msg("is eating",my_var,philo_number);
 	i = gettime(my_var);
-	while(gettime(my_var) - i <= *my_var->time_to_eat/1000);
+	while(gettime(my_var) - i < *my_var->time_to_eat/1000);
 	if (*my_var->is_died == 1)
 			return (0);
 	return(0);
@@ -106,10 +106,13 @@ void* philo_sleep(var_t *my_var,int philo_number)
 			return (0);
 	print_msg("is slepping",my_var,philo_number);
 	i = gettime(my_var);
-	
-	while(gettime(my_var) - i <= *my_var->time_to_sleep/1000);
+	while(gettime(my_var) - i < *my_var->time_to_sleep/1000);
 	if (*my_var->is_died == 1)
-			return (0);
+	{
+		usleep(100);
+		return (0);
+	}
+			
 	print_msg("is thinking",my_var,philo_number);
 	return(0);
 }
@@ -141,7 +144,6 @@ void* philo_watch(void *var)
 			i++;
 		}
 	}
-	
 	return(0);
 }
 
