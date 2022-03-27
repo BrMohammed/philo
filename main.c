@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 00:46:35 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/27 17:37:53 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/27 17:39:25 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ static int	gettime(t_var *my_var)
 	struct timeval	current_time;
 
 	gettimeofday(&current_time, NULL);
-	time = ((current_time.tv_sec - *my_var->time_to_zero) * 1000) + ((current_time.tv_usec - *my_var->utime_to_zero) / 1000);
+	time = ((current_time.tv_sec - *my_var->time_to_zero) * 1000)
+		+ ((current_time.tv_usec - *my_var->utime_to_zero) / 1000);
 	return (time);
 }
 
@@ -138,7 +139,8 @@ void	*philo_watch(void *var)
 		i = 0;
 		while (i < *my_var->philo_cont && my_var->dieing[i] != -1)
 		{
-			if ((gettime(my_var) - my_var->dieing[i]) >= (*my_var->time_to_die / 1000))
+			if ((gettime(my_var) - my_var->dieing[i])
+				>= (*my_var->time_to_die / 1000))
 			{
 				print_msg("died", my_var, i + 1);
 				*my_var->is_died = 1;
@@ -150,7 +152,7 @@ void	*philo_watch(void *var)
 	return (0);
 }
 
-int	philosophers_continue_the_code(t_var *my_var,int philo_number,int eating)
+int	philosophers_continue_the_code(t_var *my_var, int philo_number, int eating)
 {
 	pthread_mutex_lock (&my_var->forks[philo_number -1]);
 	if (*my_var->is_died == 1)
@@ -200,7 +202,7 @@ void	*philosophers(void *var)
 				break ;
 			}
 		}
-		eating = philosophers_continue_the_code(my_var,philo_number,eating);
+		eating = philosophers_continue_the_code(my_var, philo_number, eating);
 		philo_sleep(my_var, philo_number);
 		if (*my_var->is_died == 1)
 			return (0);
