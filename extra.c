@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 17:42:30 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/27 19:26:38 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/27 20:12:58 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ int	*creat(t_var *var, char **argv, int argc,
 		var->args[i - 1] = ft_atoi(argv[i]);
 	allocation(var);
 	*var->time_to_die = var->args[1] * 1000;
-	*var->time_to_eat = var->args[2] * 1000;
-	*var->time_to_sleep = var->args[3] * 1000;
+	*var->time_to_eat = var->args[2] ;
+	*var->time_to_sleep = var->args[3];
 	if (var->args[4])
 		*var->philo_must_eat = var->args[4];
 	table_of_forks_and_dieing(var);
