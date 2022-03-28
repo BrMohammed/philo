@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 00:46:43 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/28 17:31:32 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/28 18:28:22 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,11 @@ typedef struct var_s
 	pthread_mutex_t	m_philo_num;
 	pthread_mutex_t	m_print;
 	pthread_mutex_t	*m_forks;
+	pthread_mutex_t	m_death;
 }	t_var;
 
-void	*philo_watch(void *var);
+// void	*philo_watch(void *var);
+int		philo_watch(void *var);
 void	*philo_sleep(t_var *my_var, int philo_number);
 void	*philo_eat(t_var *my_var, int philo_number);
 int		ft_atoi(const char *str);
