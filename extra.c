@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 17:42:30 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/28 16:55:58 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/28 17:49:46 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	allocation(t_var *var, char **argv, int argc)
 	int	i;
 
 	i = 0;
-	var->args = malloc(argc * sizeof(int));
+	var->args = malloc(argc + 1 * sizeof(int));
 	var->args[argc] = '\0';
 	while (argv[++i])
 	{
@@ -66,6 +66,8 @@ int	*creat(t_var *var, char **argv, int argc,
 	*var->time_to_sleep = var->args[3];
 	if (var->args[4])
 		*var->philo_must_eat = var->args[4];
+	else
+		*var->philo_must_eat = -1;
 	table_of_m_forks_and_dieing(var);
 	*var->philo_cont = var->args[0];
 	gettimeofday(current_time, NULL);

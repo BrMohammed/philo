@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 00:46:35 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/28 16:52:00 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/28 17:49:01 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	*philo_loop(t_var *my_var, int philo_number, int eating)
 {
 	while (*my_var->is_died != 1)
 	{
-		if (*my_var->philo_must_eat)
+		if (*my_var->philo_must_eat != -1)
 		{
 			if (eating == *my_var->philo_must_eat)
 			{
