@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 17:46:26 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/28 18:52:20 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/28 19:32:08 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	loop_of_philo_watch(t_var *my_var)
 	return (0);
 }
 
-int	philo_watch(void *var)
+void	*philo_watch(void *var)
 {
 	t_var			*my_var;
 	struct timeval	current_time;
@@ -103,12 +103,8 @@ int	philo_watch(void *var)
 		gettimeofday(&current_time, NULL);
 		usleep(1000);
 		i = 0;
-		while (my_var->dieing[i] == -1 && i < *my_var->philo_cont)
-			i++;
-		if (i == *my_var->philo_cont - 1)
-			break ;
 		if (loop_of_philo_watch(my_var) == 1)
-			return (1);
+			return (0);
 	}
 	return (0);
 }

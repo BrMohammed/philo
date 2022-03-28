@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 00:46:35 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/28 18:52:08 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/28 19:31:44 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	*philo_loop(t_var *my_var, int philo_number, int eating)
 {
-	while (1)
+	while (*my_var->is_died != 1)
 	{
 		if (*my_var->philo_must_eat != -1)
 		{
@@ -50,25 +50,23 @@ void	*philosophers(void *var)
 	return (0);
 }
 
-int	threads(pthread_t *th, t_var *var)
+void	threads(pthread_t *th, pthread_t wth, t_var *var)
 {
 	int	i;
 
 	i = 0;
-	if (philo_watch(var) == 1)
-		return (0);
 	while (i++ < *var->philo_cont)
 		pthread_join(th[i], NULL);
+	pthread_detach(wth);
 	pthread_mutex_destroy(&var->m_philo_num);
 	pthread_mutex_destroy(&var->m_print);
 	pthread_mutex_destroy(&var->m_death);
 	i = -1;
 	while (++i < *var->philo_cont)
 		pthread_mutex_destroy(&var->m_forks[i]);
-	return (0);
 }
 
-void	parse(pthread_t *th, t_var *var)
+void	parse(pthread_t *th, pthread_t wth, t_var *var)
 {
 	int	i;
 
@@ -79,6 +77,7 @@ void	parse(pthread_t *th, t_var *var)
 	while (++i < *var->philo_cont)
 		pthread_mutex_init(&var->m_forks[i], NULL);
 	i = 0;
+	pthread_create(&wth, NULL, &philo_watch, var);
 	while (i++ < *var->philo_cont)
 	{
 		pthread_create(&th[i], NULL, &philosophers, var);
@@ -90,17 +89,19 @@ int	main(int argc, char **argv)
 {
 	struct timeval		current_time;
 	pthread_t			*th;
+	pthread_t			wth;
 	t_var				var;
 
 	if (argc > 4 && argc <= 6)
 	{
+		wth = NULL;
 		th = NULL;
 		th = malloc(ft_atoi(argv[1]) * sizeof(pthread_mutex_t));
 		if (creat(&var, argv, argc, &current_time) == NULL)
 			return (0);
 		var.args = creat(&var, argv, argc, &current_time);
-		parse(th, &var);
-		threads(th, &var);
+		parse(th, wth, &var);
+		threads(th, wth, &var);
 	}
 	else if (argc > 6)
 		printf("to many args \n");
