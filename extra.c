@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 17:42:30 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/27 20:38:31 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/28 01:38:03 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	*creat(t_var *var, char **argv, int argc,
 	if (var->args[4])
 		*var->philo_must_eat = var->args[4];
 	table_of_forks_and_dieing(var);
-	var->philo_cont = &var->args[0];
+	*var->philo_cont = var->args[0];
 	gettimeofday(current_time, NULL);
 	*var->utime_to_zero = current_time->tv_usec;
 	*var->time_to_zero = current_time->tv_sec;

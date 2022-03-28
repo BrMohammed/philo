@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 00:46:35 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/27 20:38:16 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/28 01:39:18 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int	main(int argc, char **argv)
 	if (argc > 4 && argc <= 6)
 	{
 		wth = NULL;
+		th = NULL;
 		th = malloc(ft_atoi(argv[1]) * sizeof(pthread_mutex_t));
 		var.args = creat(&var, argv, argc, &current_time);
 		parse(th, wth, &var);

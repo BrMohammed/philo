@@ -7,10 +7,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 
 # This program built for i386-apple-darwin11.3.0
  
-make: *** No rule to make target `main.o', needed by `philo'.  Stop.
- 
 
-# Make data base, printed on Sun Mar 27 20:02:22 2022
+# Make data base, printed on Mon Mar 28 01:39:31 2022
 
 # Variables
 
@@ -43,13 +41,13 @@ ADD = git add .
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n0000h5m00041d/T/vscode-ipc-8766f97b-f31a-4f60-87ec-7bdcbba11165.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n0000h5m00041d/T/vscode-ipc-81587f43-e48d-4a2d-94b2-f2f0dcb587fe.sock
 # environment
 VSCODE_CWD = /
 # environment
-Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.ZCFcnBtGTq/Render
+Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.AyLfzHxGTb/Render
 # environment
-PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Frameworks/Mono.framework/Versions/Current/Commands
+PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki
 # makefile (from `Makefile', line 28)
 commit = git log --graph --oneline --decorate HEAD^..HEAD
 # environment
@@ -63,7 +61,7 @@ ELECTRON_RUN_AS_NODE = 1
 # makefile (from `Makefile', line 23)
 read := @echo "Add Commit Plz !!" && read -p "-> " enter && git commit -m $${enter}
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.xL52MDx0xh/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.Cyt8FtroZF/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -131,7 +129,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.microsoft.VSCode.1220
+XPC_SERVICE_NAME = com.microsoft.VSCode.1160
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
@@ -159,7 +157,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 9195
+VSCODE_PID = 25268
 # makefile (from `Makefile', line 4)
 FILES = main.c ft_atoi.c extra.c extra2.c
 # variable set hash-table stats:
@@ -171,9 +169,9 @@ FILES = main.c ft_atoi.c extra.c extra2.c
 
 # Directories
 
-# . (device 16777227, inode 2357697): 12 files, no impossibilities.
+# . (device 16777227, inode 2357697): 17 files, no impossibilities.
 
-# 12 files, no impossibilities in 1 directories.
+# 17 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -185,14 +183,16 @@ all: philo
 #  Command-line target.
 #  Implicit rule search has been done.
 #  File does not exist.
-#  File has not been updated.
+#  File has been updated.
+#  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 philo: main.o ft_atoi.o extra.o extra2.o
 #  Implicit rule search has not been done.
-#  File does not exist.
-#  File has not been updated.
+#  Last modified 2022-03-28 01:39:28
+#  File has been updated.
+#  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 8):
@@ -219,7 +219,7 @@ push:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-03-27 20:01:41
+#  Last modified 2022-03-28 01:39:26
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -227,9 +227,12 @@ Makefile:
 
 # Not a target:
 extra2.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  Implicit rule search has been done.
+#  Last modified 2022-03-28 01:35:09
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 fclean: clean
 #  Implicit rule search has not been done.
@@ -261,22 +264,29 @@ clean:
 # Not a target:
 main.o:
 #  Implicit rule search has been done.
-#  File does not exist.
-#  File has not been updated.
+#  Last modified 2022-03-28 01:39:28
+#  File has been updated.
+#  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # Not a target:
 ft_atoi.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  Implicit rule search has been done.
+#  Last modified 2022-03-27 20:42:55
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # Not a target:
 extra.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  Implicit rule search has been done.
+#  Last modified 2022-03-28 01:38:29
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # files hash-table stats:
 # Load=13/1024=1%, Rehash=0, Collisions=0/34=0%
@@ -291,6 +301,6 @@ extra.o:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sun Mar 27 20:02:22 2022
+# Finished Make data base on Mon Mar 28 01:39:31 2022
 
  
