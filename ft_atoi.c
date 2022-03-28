@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 00:46:47 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/27 20:42:09 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/28 16:48:39 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,35 @@ static long	loop(const char *str, int i, int n)
 		n++;
 	}
 	return (result * i);
+}
+
+int	ft_isdigit01(int c)
+{
+	if (c >= '0' && c <= '9')
+	{
+		return (1);
+	}
+	return (0);
+}
+
+int	ft_isdigit(char *c)
+{
+	int	n;
+
+	n = 0;
+	if (c[0] == '\0')
+		return (1);
+	if ((c[0] == '-' && c[1] == '\0'))
+		return (1);
+	while (c[n])
+	{
+		if ((c[0] == '-' && c[0] == c[n]) || c[n] == '-')
+			return (1);
+		if (ft_isdigit01(c[n]) == 0)
+			return (1);
+		n++;
+	}
+	return (0);
 }
 
 int	ft_atoi(const char *str)

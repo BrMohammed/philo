@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 00:46:43 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/27 20:43:10 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/28 16:45:22 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,13 @@ typedef struct var_s
 	int				*args;
 	long			*utime_to_zero;
 	long			*time_to_zero;
+
 	int				*philo_num;
 	int				*philo_cont;
 	int				*is_died;
 	pthread_mutex_t	m_philo_num;
 	pthread_mutex_t	m_print;
-	pthread_mutex_t	*forks;
+	pthread_mutex_t	*m_forks;
 }	t_var;
 
 void	*philo_watch(void *var);
@@ -48,4 +49,5 @@ int		*creat(t_var *var, char **argv, int argc, struct timeval *current_time);
 int		philosophers_continue_the_code(t_var *my_var,
 			int philo_number, int eating);
 int		condetion_of_one_philo(t_var *my_var);
+int		ft_isdigit(char *c);
 #endif

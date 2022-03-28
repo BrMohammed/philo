@@ -6,30 +6,44 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 17:42:30 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/28 01:38:03 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/28 16:55:58 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	table_of_forks_and_dieing(t_var *var)
+static void	table_of_m_forks_and_dieing(t_var *var)
 {
 	int	i;
-	int	number_of_forks;
+	int	number_of_m_forks;
 
-	number_of_forks = var->args[0];
-	var->forks = malloc(number_of_forks * sizeof(pthread_mutex_t));
-	var->dieing = malloc(number_of_forks * sizeof(int));
+	number_of_m_forks = var->args[0];
+	var->m_forks = malloc(number_of_m_forks * sizeof(pthread_mutex_t));
+	var->dieing = malloc(number_of_m_forks * sizeof(int));
 	i = 0;
-	while (i < number_of_forks)
+	while (i < number_of_m_forks)
 	{
 		var->dieing[i] = 0;
 		i++;
 	}
 }
 
-void	allocation(t_var *var)
+int	allocation(t_var *var, char **argv, int argc)
 {
+	int	i;
+
+	i = 0;
+	var->args = malloc(argc * sizeof(int));
+	var->args[argc] = '\0';
+	while (argv[++i])
+	{
+		if (ft_isdigit(argv[i]) == 1)
+		{
+			printf("invalid argiment\n");
+			return (-1);
+		}
+		var->args[i - 1] = ft_atoi(argv[i]);
+	}
 	var->is_died = malloc(sizeof(int));
 	var->time_to_die = malloc(sizeof(int));
 	var->time_to_eat = malloc(sizeof(int));
@@ -39,25 +53,20 @@ void	allocation(t_var *var)
 	var->time_to_zero = malloc(sizeof(long));
 	var->philo_num = malloc(sizeof(int));
 	var->philo_must_eat = malloc(sizeof(int));
+	return (0);
 }
 
 int	*creat(t_var *var, char **argv, int argc,
 					struct timeval *current_time)
 {
-	int	i;
-
-	i = 0;
-	var->args = malloc(argc * sizeof(int));
-	var->args[argc] = '\0';
-	while (argv[++i])
-		var->args[i - 1] = ft_atoi(argv[i]);
-	allocation(var);
+	if (allocation(var, argv, argc) == -1)
+		return (NULL);
 	*var->time_to_die = var->args[1] * 1000;
 	*var->time_to_eat = var->args[2];
 	*var->time_to_sleep = var->args[3];
 	if (var->args[4])
 		*var->philo_must_eat = var->args[4];
-	table_of_forks_and_dieing(var);
+	table_of_m_forks_and_dieing(var);
 	*var->philo_cont = var->args[0];
 	gettimeofday(current_time, NULL);
 	*var->utime_to_zero = current_time->tv_usec;

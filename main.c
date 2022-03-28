@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 00:46:35 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/28 01:39:18 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/28 16:52:00 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	threads(pthread_t *th, pthread_t wth, t_var *var)
 	pthread_mutex_destroy(&var->m_print);
 	i = -1;
 	while (++i < *var->philo_cont)
-		pthread_mutex_destroy(&var->forks[i]);
+		pthread_mutex_destroy(&var->m_forks[i]);
 }
 
 void	parse(pthread_t *th, pthread_t wth, t_var *var)
@@ -73,7 +73,7 @@ void	parse(pthread_t *th, pthread_t wth, t_var *var)
 	pthread_mutex_init(&var->m_philo_num, NULL);
 	pthread_mutex_init(&var->m_print, NULL);
 	while (++i < *var->philo_cont)
-		pthread_mutex_init(&var->forks[i], NULL);
+		pthread_mutex_init(&var->m_forks[i], NULL);
 	i = 0;
 	pthread_create(&wth, NULL, &philo_watch, var);
 	while (i++ < *var->philo_cont)
@@ -95,11 +95,15 @@ int	main(int argc, char **argv)
 		wth = NULL;
 		th = NULL;
 		th = malloc(ft_atoi(argv[1]) * sizeof(pthread_mutex_t));
+		if (creat(&var, argv, argc, &current_time) == NULL)
+			return (0);
 		var.args = creat(&var, argv, argc, &current_time);
 		parse(th, wth, &var);
 		threads(th, wth, &var);
 	}
 	else if (argc > 6)
 		printf("to many args \n");
+	else if (argc < 5)
+		printf("few args \n");
 	return (0);
 }

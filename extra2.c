@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 17:46:26 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/28 01:39:49 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/28 16:32:06 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,28 @@
 
 int	philosophers_continue_the_code(t_var *my_var, int philo_number, int eating)
 {
-	pthread_mutex_lock (&my_var->forks[philo_number -1]);
+	pthread_mutex_lock (&my_var->m_forks[philo_number -1]);
 	print_msg("has taken a fork", my_var, philo_number);
 	if (condetion_of_one_philo(my_var) == 1)
 		return (0);
 	if (philo_number == my_var->args[0])
 	{
-		pthread_mutex_lock (&my_var->forks[0]);
+		pthread_mutex_lock (&my_var->m_forks[0]);
 		print_msg("has taken a fork", my_var, philo_number);
 	}
 	else
 	{
-		pthread_mutex_lock (&my_var->forks[philo_number]);
+		pthread_mutex_lock (&my_var->m_forks[philo_number]);
 		print_msg("has taken a fork", my_var, philo_number);
 	}
 	my_var->dieing[philo_number - 1] = gettime(my_var);
 	philo_eat(my_var, philo_number);
 	eating++;
-	pthread_mutex_unlock (&my_var->forks[philo_number -1]);
+	pthread_mutex_unlock (&my_var->m_forks[philo_number -1]);
 	if (philo_number == my_var->args[0])
-		pthread_mutex_unlock (&my_var->forks[0]);
+		pthread_mutex_unlock (&my_var->m_forks[0]);
 	else
-		pthread_mutex_unlock (&my_var->forks[philo_number]);
+		pthread_mutex_unlock (&my_var->m_forks[philo_number]);
 	return (eating);
 }
 
