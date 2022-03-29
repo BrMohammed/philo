@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 00:46:35 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/29 00:25:45 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/29 00:32:20 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,9 @@ void	threads(pthread_t *th, pthread_t wth, t_var *var)
 
 void	parse(pthread_t *th, pthread_t wth, t_var *var)
 {
-	int	i;
-	struct timeval current_time;
+	int				i;
+	struct timeval	current_time;
+
 	i = -1;
 	pthread_mutex_init(&var->m_philo_num, NULL);
 	pthread_mutex_init(&var->m_print, NULL);
@@ -80,7 +81,6 @@ void	parse(pthread_t *th, pthread_t wth, t_var *var)
 	pthread_create(&wth, NULL, &philo_watch, var);
 	while (i++ < *var->philo_cont)
 	{
-	
 		pthread_create(&th[i], NULL, &philosophers, var);
 		usleep(60);
 		gettimeofday(&current_time, NULL);

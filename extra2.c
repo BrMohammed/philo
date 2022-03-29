@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 17:46:26 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/29 00:25:18 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/29 00:32:01 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	*philo_eat(t_var *my_var, int philo_number)
 		usleep(10);
 		return (0);
 	}
-		
 	print_msg("is eating", my_var, philo_number);
 	i = gettime(my_var);
 	while (gettime(my_var) - i < (*my_var->time_to_eat))
