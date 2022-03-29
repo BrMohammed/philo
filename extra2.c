@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 17:46:26 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/28 19:54:17 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/29 00:25:18 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,15 @@ void	*philo_eat(t_var *my_var, int philo_number)
 	int	i;
 
 	if (*my_var->is_died == 1)
+	{
+		usleep(10);
 		return (0);
+	}
+		
 	print_msg("is eating", my_var, philo_number);
 	i = gettime(my_var);
 	while (gettime(my_var) - i < (*my_var->time_to_eat))
-		usleep(100);
+		usleep(1000);
 	return (0);
 }
 
@@ -60,8 +64,10 @@ void	*philo_sleep(t_var *my_var, int philo_number)
 		return (0);
 	print_msg("is slepping", my_var, philo_number);
 	i = gettime(my_var);
-	while (gettime(my_var) - i < *my_var->time_to_sleep)
-		usleep(100);
+	while (gettime(my_var) - i <= *my_var->time_to_sleep)
+		usleep(1000);
+	if (*my_var->is_died == 1)
+		return (0);
 	print_msg("is thinking", my_var, philo_number);
 	return (0);
 }
@@ -101,7 +107,7 @@ void	*philo_watch(void *var)
 	while (1)
 	{
 		gettimeofday(&current_time, NULL);
-		usleep(1000);
+		usleep(100);
 		i = 0;
 		if (loop_of_philo_watch(my_var) == 1)
 			return (0);

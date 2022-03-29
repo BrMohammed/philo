@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 17:42:30 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/28 19:58:00 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/29 00:22:17 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,13 @@ int	gettime(t_var *my_var)
 
 void	print_msg(char *word, t_var *my_var, int philo_number)
 {
+	int i;
+
+	i = 0;
+	while(word[i])
+	{
+		i++;
+	}
 	pthread_mutex_lock (&my_var->m_print);
 	if (*my_var->is_died != 1)
 		printf("%d %d %s \n", gettime(my_var), philo_number, word);

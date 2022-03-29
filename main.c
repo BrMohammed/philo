@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 00:46:35 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/28 19:47:53 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/29 00:25:45 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	threads(pthread_t *th, pthread_t wth, t_var *var)
 void	parse(pthread_t *th, pthread_t wth, t_var *var)
 {
 	int	i;
-
+	struct timeval current_time;
 	i = -1;
 	pthread_mutex_init(&var->m_philo_num, NULL);
 	pthread_mutex_init(&var->m_print, NULL);
@@ -80,8 +80,12 @@ void	parse(pthread_t *th, pthread_t wth, t_var *var)
 	pthread_create(&wth, NULL, &philo_watch, var);
 	while (i++ < *var->philo_cont)
 	{
+	
 		pthread_create(&th[i], NULL, &philosophers, var);
-		usleep(100);
+		usleep(60);
+		gettimeofday(&current_time, NULL);
+		*var->utime_to_zero = current_time.tv_usec;
+		*var->time_to_zero = current_time.tv_sec;
 	}
 }
 
@@ -97,9 +101,9 @@ int	main(int argc, char **argv)
 		wth = NULL;
 		th = NULL;
 		th = malloc(ft_atoi(argv[1]) * sizeof(pthread_mutex_t));
-		if (creat(&var, argv, argc, &current_time) == NULL)
-			return (0);
 		var.args = creat(&var, argv, argc, &current_time);
+		if (var.args == NULL)
+			return (0);
 		parse(th, wth, &var);
 		threads(th, wth, &var);
 	}

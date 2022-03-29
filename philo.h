@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 00:46:43 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/28 19:31:14 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/29 00:21:30 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,5 @@ int		philosophers_continue_the_code(t_var *my_var,
 			int philo_number, int eating);
 int		condetion_of_one_philo(t_var *my_var);
 int		ft_isdigit(char *c);
+
 #endif
