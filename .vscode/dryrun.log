@@ -1,9 +1,9 @@
 make --dry-run --always-make --keep-going --print-directory
-make: Entering directory `/Users/brmohamm/Desktop/philo'
+make: Entering directory `/Users/brmohamm/Desktop/philo_beta'
 gcc -Wall -Wextra -Werror   -c -o main.o main.c
 gcc -Wall -Wextra -Werror   -c -o ft_atoi.o ft_atoi.c
 gcc -Wall -Wextra -Werror   -c -o extra.o extra.c
 gcc -Wall -Wextra -Werror   -c -o extra2.o extra2.c
 gcc -Wall -Wextra -Werror -o philo main.c ft_atoi.c extra.c extra2.c
-make: Leaving directory `/Users/brmohamm/Desktop/philo'
+make: Leaving directory `/Users/brmohamm/Desktop/philo_beta'
  

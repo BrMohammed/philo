@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 17:42:30 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/29 00:31:54 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/29 19:23:56 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	*creat(t_var *var, char **argv, int argc,
 	gettimeofday(current_time, NULL);
 	*var->utime_to_zero = current_time->tv_usec;
 	*var->time_to_zero = current_time->tv_sec;
+	*var->is_died = 0;
 	return (var->args);
 }
 

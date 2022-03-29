@@ -7,7 +7,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 
 # This program built for i386-apple-darwin11.3.0
 
-# Make data base, printed on Tue Mar 29 00:28:28 2022
+# Make data base, printed on Tue Mar 29 19:21:32 2022
 
 # Variables
 
@@ -24,7 +24,7 @@ VSCODE_LOG_NATIVE = false
 # automatic
 @F = $(notdir $@)
 # makefile
-CURDIR := /Users/brmohamm/Desktop/philo
+CURDIR := /Users/brmohamm/Desktop/philo_beta
 # makefile
 SHELL = /bin/sh
 # environment
@@ -40,13 +40,13 @@ ADD = git add .
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n0000h5m00041d/T/vscode-ipc-ce5b3a5f-a032-4b0e-9cb3-706f8746b3c6.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n0000h5m00041d/T/vscode-ipc-e9c45994-1154-478e-ad1e-c72dd2857dad.sock
 # environment
 VSCODE_CWD = /
 # environment
-Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.uwdAOBZqj3/Render
+Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.mWBSUFgn75/Render
 # environment
-PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Frameworks/Mono.framework/Versions/Current/Commands
+PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki
 # makefile (from `Makefile', line 28)
 commit = git log --graph --oneline --decorate HEAD^..HEAD
 # environment
@@ -60,23 +60,23 @@ ELECTRON_RUN_AS_NODE = 1
 # makefile (from `Makefile', line 23)
 read := @echo "Add Commit Plz !!" && read -p "-> " enter && git commit -m $${enter}
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.OmqwazpOcT/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.Mfa1wOlFbo/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
-PWD = /Users/brmohamm/Desktop/philo
+PWD = /Users/brmohamm/Desktop/philo_beta
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = undefined
 # environment
-VSCODE_AMD_ENTRYPOINT = vs/workbench/services/extensions/node/extensionHostProcess
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
 HOME = /Users/brmohamm
 # default
 MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/brmohamm/Library/Application Support/Code/CachedData/f80445acd5a3dadef24aa209168452a3d97cc326
+VSCODE_CODE_CACHE_PATH = /Users/brmohamm/Library/Application Support/Code/CachedData/c722ca6c7eed3d7987c0d5c3df5c45f6b15e77d1
 # environment
 LOGNAME = brmohamm
 # environment
@@ -103,6 +103,7 @@ CC = gcc
 MAKE_VERSION := 3.81
 # environment
 USER = brmohamm
+ 
 # makefile
 .DEFAULT_GOAL := philo
 # makefile (from `Makefile', line 1)
@@ -120,7 +121,7 @@ TMPDIR = /var/folders/zz/zyxvpxvq6csfxvn_n0000h5m00041d/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/brmohamm/Library/Application Support/Code/1.64.2-main.sock
+VSCODE_IPC_HOOK = /Users/brmohamm/Library/Application Support/Code/1.65.2-main.sock
 # makefile
 MAKEFLAGS = Rrqp
 # environment
@@ -128,7 +129,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.microsoft.VSCode.3532
+XPC_SERVICE_NAME = com.microsoft.VSCode.1240
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
@@ -156,7 +157,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 9042
+VSCODE_PID = 11825
 # makefile (from `Makefile', line 4)
 FILES = main.c ft_atoi.c extra.c extra2.c
 # variable set hash-table stats:
@@ -168,7 +169,7 @@ FILES = main.c ft_atoi.c extra.c extra2.c
 
 # Directories
 
-# . (device 16777227, inode 2357697): 16 files, no impossibilities.
+# . (device 16777227, inode 2480748): 16 files, no impossibilities.
 
 # 16 files, no impossibilities in 1 directories.
 
@@ -189,7 +190,7 @@ all: philo
 
 philo: main.o ft_atoi.o extra.o extra2.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-03-29 00:25:56
+#  Last modified 2022-03-29 19:21:21
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -218,7 +219,7 @@ push:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-03-29 00:21:10
+#  Last modified 2022-03-29 19:21:21
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -227,7 +228,7 @@ Makefile:
 # Not a target:
 extra2.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-03-29 00:25:19
+#  Last modified 2022-03-29 19:21:21
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -263,7 +264,7 @@ clean:
 # Not a target:
 main.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-03-29 00:25:56
+#  Last modified 2022-03-29 19:21:21
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -272,7 +273,7 @@ main.o:
 # Not a target:
 ft_atoi.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-03-29 00:22:31
+#  Last modified 2022-03-29 19:21:21
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -281,7 +282,7 @@ ft_atoi.o:
 # Not a target:
 extra.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-03-29 00:22:31
+#  Last modified 2022-03-29 19:21:21
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -300,6 +301,6 @@ extra.o:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Tue Mar 29 00:28:28 2022
+# Finished Make data base on Tue Mar 29 19:21:32 2022
 
  
