@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 00:46:35 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/30 01:31:36 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/30 03:01:54 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,27 +50,27 @@ void	*philosophers(void *var)
 	return (0);
 }
 
-int	threads(pthread_t *th, pthread_t wth, t_var *var)
+int	threads(pthread_t *th, t_var *var)
 {
 	int	i;
 
-	i = 0;
-	pthread_join(wth, NULL);
-	usleep(1000000);
-	if (*var->is_died == 1)
+	if (philo_watch(var) == -1)
+	{
+		usleep(100000);
 		return (0);
+	}
+	i = 0;
 	while (i++ < *var->philo_cont)
 		pthread_join(th[i], NULL);
 	pthread_mutex_destroy(&var->m_philo_num);
 	pthread_mutex_destroy(&var->m_print);
-	pthread_mutex_destroy(&var->m_death);
 	i = -1;
 	while (++i < *var->philo_cont)
 		pthread_mutex_destroy(&var->m_forks[i]);
 	return (0);
 }
 
-void	parse(pthread_t *th, pthread_t wth, t_var *var)
+void	parse(pthread_t *th, t_var *var)
 {
 	int				i;
 	struct timeval	current_time;
@@ -78,11 +78,9 @@ void	parse(pthread_t *th, pthread_t wth, t_var *var)
 	i = -1;
 	pthread_mutex_init(&var->m_philo_num, NULL);
 	pthread_mutex_init(&var->m_print, NULL);
-	pthread_mutex_init(&var->m_death, NULL);
 	while (++i < *var->philo_cont)
 		pthread_mutex_init(&var->m_forks[i], NULL);
 	i = 0;
-	pthread_create(&wth, NULL, &philo_watch, var);
 	while (i++ < *var->philo_cont)
 	{
 		pthread_create(&th[i], NULL, &philosophers, var);
@@ -97,19 +95,17 @@ int	main(int argc, char **argv)
 {
 	struct timeval		current_time;
 	pthread_t			*th;
-	pthread_t			wth;
 	t_var				var;
 
 	if (argc > 4 && argc <= 6)
 	{
-		wth = NULL;
 		th = NULL;
 		th = malloc(ft_atoi(argv[1]) * sizeof(pthread_mutex_t));
 		var.args = creat(&var, argv, argc, &current_time);
 		if (var.args == NULL)
 			return (0);
-		parse(th, wth, &var);
-		threads(th, wth, &var);
+		parse(th, &var);
+		threads(th, &var);
 	}
 	else if (argc > 6)
 		printf("to many args \n");

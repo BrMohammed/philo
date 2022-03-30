@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 17:46:26 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/30 01:31:42 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/30 02:59:19 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ int	loop_of_philo_watch(t_var *my_var)
 			>= (*my_var->time_to_die / 1000))
 		{
 			pthread_mutex_lock(&my_var->m_print);
-			*my_var->is_died = 1;
 			printf("%d %d died \n", gettime(my_var), i + 1);
+			*my_var->is_died = 1;
 			return (1);
 		}
 		i++;
@@ -91,7 +91,7 @@ int	loop_of_philo_watch(t_var *my_var)
 	return (0);
 }
 
-void	*philo_watch(void *var)
+int	philo_watch(void *var)
 {
 	t_var			*my_var;
 	struct timeval	current_time;
@@ -105,11 +105,15 @@ void	*philo_watch(void *var)
 	time_sec_to_di_to_zero = current_time.tv_sec;
 	while (1)
 	{
+		i = 0;
+		while (my_var->dieing[i] == -1)
+			i++;
+		if (i == *my_var->philo_cont)
+			return (-1);
 		gettimeofday(&current_time, NULL);
 		usleep(100);
-		i = 0;
 		if (loop_of_philo_watch(my_var) == 1)
-			return (0);
+			return (-1);
 	}
 	return (0);
 }

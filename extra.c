@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 17:42:30 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/29 19:23:56 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/30 02:28:06 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,13 @@ int	gettime(t_var *my_var)
 	return (time);
 }
 
-void	print_msg(char *word, t_var *my_var, int philo_number)
+int	print_msg(char *word, t_var *my_var, int philo_number)
 {
+	if (*my_var->is_died == 1)
+		return (0);
 	pthread_mutex_lock (&my_var->m_print);
 	if (*my_var->is_died != 1)
 		printf("%d %d %s \n", gettime(my_var), philo_number, word);
 	pthread_mutex_unlock (&my_var->m_print);
+	return (0);
 }

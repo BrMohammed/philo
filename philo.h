@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 00:46:43 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/29 00:21:30 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/30 02:36:16 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ typedef struct var_s
 	pthread_mutex_t	m_death;
 }	t_var;
 
-void	*philo_watch(void *var);
+int		philo_watch(void *var);
 void	*philo_sleep(t_var *my_var, int philo_number);
 void	*philo_eat(t_var *my_var, int philo_number);
 int		ft_atoi(const char *str);
-void	print_msg(char *word, t_var *my_var, int philo_number);
+int		print_msg(char *word, t_var *my_var, int philo_number);
 int		gettime(t_var *my_var);
 int		*creat(t_var *var, char **argv, int argc, struct timeval *current_time);
 int		philosophers_continue_the_code(t_var *my_var,
