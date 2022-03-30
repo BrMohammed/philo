@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 17:46:26 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/29 00:32:01 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/30 01:31:42 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ int	loop_of_philo_watch(t_var *my_var)
 		if ((gettime(my_var) - my_var->dieing[i])
 			>= (*my_var->time_to_die / 1000))
 		{
-			pthread_mutex_lock(&my_var->m_death);
-			print_msg("died", my_var, i + 1);
+			pthread_mutex_lock(&my_var->m_print);
 			*my_var->is_died = 1;
+			printf("%d %d died \n", gettime(my_var), i + 1);
 			return (1);
 		}
 		i++;

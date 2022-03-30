@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 00:46:35 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/29 00:32:20 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/30 01:31:36 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,24 @@ void	*philosophers(void *var)
 	return (0);
 }
 
-void	threads(pthread_t *th, pthread_t wth, t_var *var)
+int	threads(pthread_t *th, pthread_t wth, t_var *var)
 {
 	int	i;
 
 	i = 0;
+	pthread_join(wth, NULL);
+	usleep(1000000);
+	if (*var->is_died == 1)
+		return (0);
 	while (i++ < *var->philo_cont)
 		pthread_join(th[i], NULL);
-	pthread_detach(wth);
 	pthread_mutex_destroy(&var->m_philo_num);
 	pthread_mutex_destroy(&var->m_print);
 	pthread_mutex_destroy(&var->m_death);
 	i = -1;
 	while (++i < *var->philo_cont)
 		pthread_mutex_destroy(&var->m_forks[i]);
+	return (0);
 }
 
 void	parse(pthread_t *th, pthread_t wth, t_var *var)
