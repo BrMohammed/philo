@@ -1,5 +1,6 @@
 NAME = philo
-CC = gcc
+#-g -fsanitize=address
+CC = gcc 
 CFLAGS = -Wall -Wextra -Werror
 FILES = main.c ft_atoi.c extra.c extra2.c
 objets = $(FILES:.c=.o)
