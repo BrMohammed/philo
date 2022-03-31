@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 17:46:26 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/31 15:33:50 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/31 16:30:35 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,15 @@ void	*philo_eat(t_var *my_var, int philo_number)
 {
 	int	i;
 
-	if (*my_var->is_died == 1)
-	{
-		usleep(10);
-		return (0);
-	}
 	print_msg("is eating", my_var, philo_number);
 	i = gettime(my_var);
 	while (gettime(my_var) - i < (*my_var->time_to_eat))
-		usleep(100);
+	{
+		if (my_var->args[0] <= 100)
+			usleep(100);
+		else
+			usleep(1000);
+	}
 	return (0);
 }
 
@@ -59,14 +59,15 @@ void	*philo_sleep(t_var *my_var, int philo_number)
 {
 	int	i;
 
-	if (*my_var->is_died == 1)
-		return (0);
 	print_msg("is slepping", my_var, philo_number);
 	i = gettime(my_var);
 	while (gettime(my_var) - i <= *my_var->time_to_sleep)
-		usleep(100);
-	if (*my_var->is_died == 1)
-		return (0);
+	{
+		if (my_var->args[0] <= 100)
+			usleep(100);
+		else
+			usleep(1000);
+	}
 	print_msg("is thinking", my_var, philo_number);
 	return (0);
 }
@@ -84,6 +85,7 @@ int	loop_of_philo_watch(t_var *my_var)
 			pthread_mutex_lock(&my_var->m_print);
 			printf("%d %d died \n", gettime(my_var), i + 1);
 			*my_var->is_died = 1;
+			usleep(100000);
 			return (1);
 		}
 		i++;
@@ -110,9 +112,7 @@ int	philo_watch(void *var)
 			i++;
 		if (i == *my_var->philo_cont)
 			return (-1);
-			
 		gettimeofday(&current_time, NULL);
-		usleep(100);
 		if (loop_of_philo_watch(my_var) == 1)
 			return (-1);
 	}

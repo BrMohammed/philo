@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 00:46:35 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/31 15:30:02 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/31 16:25:29 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,7 @@ int	threads(pthread_t *th, t_var *var)
 	int	i;
 
 	if (philo_watch(var) == -1)
-	{
-		usleep(100000);
 		return (0);
-	}
 	i = 0;
 	while (i++ < *var->philo_cont)
 		pthread_join(th[i], NULL);
