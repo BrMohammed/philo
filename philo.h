@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 00:46:43 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/30 22:01:56 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/31 15:26:04 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,8 @@ typedef struct var_s
 	int				*philo_num;
 	int				*philo_cont;
 	int				*is_died;
-	pthread_mutex_t	m_philo_num;
 	pthread_mutex_t	m_print;
 	pthread_mutex_t	*m_forks;
-	pthread_mutex_t	m_death;
 }	t_var;
 
 int		philo_watch(void *var);

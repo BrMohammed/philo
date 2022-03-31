@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 00:46:35 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/30 22:52:28 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/31 15:30:02 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ int	threads(pthread_t *th, t_var *var)
 	int	i;
 
 	if (philo_watch(var) == -1)
+	{
+		usleep(100000);
 		return (0);
+	}
 	i = 0;
 	while (i++ < *var->philo_cont)
 		pthread_join(th[i], NULL);
@@ -70,9 +73,9 @@ void	parse(pthread_t *th, t_var *var)
 	struct timeval	current_time;
 
 	i = -1;
+	pthread_mutex_init(&var->m_print, NULL);
 	while (++i < *var->philo_cont)
 		pthread_mutex_init(&var->m_forks[i], NULL);
-	pthread_mutex_init(&var->m_print, NULL);
 	i = 0;
 	while (i++ < *var->philo_cont)
 	{
@@ -82,7 +85,6 @@ void	parse(pthread_t *th, t_var *var)
 		*var->utime_to_zero = current_time.tv_usec;
 		*var->time_to_zero = current_time.tv_sec;
 	}
-	
 }
 
 int	main(int argc, char **argv)
@@ -99,7 +101,7 @@ int	main(int argc, char **argv)
 		if (var.args == NULL)
 			return (0);
 		parse(th, &var);
-		philo_watch(&var);
+		threads(th, &var);
 	}
 	else if (argc > 6)
 		printf("to many args \n");

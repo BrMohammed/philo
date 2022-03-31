@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 17:42:30 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/30 22:22:25 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/31 15:32:33 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	table_of_m_forks_and_dieing(t_var *var)
 	int	number_of_m_forks;
 
 	number_of_m_forks = var->args[0];
-	var->m_forks = (pthread_mutex_t *)malloc(number_of_m_forks * sizeof(pthread_mutex_t));
+	var->m_forks = malloc(number_of_m_forks * sizeof(pthread_mutex_t));
 	var->dieing = (int *)malloc(sizeof(int) * number_of_m_forks);
 	i = 0;
 	while (i < number_of_m_forks)
@@ -32,6 +32,7 @@ int	allocation(t_var *var, char **argv, int argc)
 {
 	int	i;
 
+	i = 0;
 	i = 0;
 	var->args = (int *)malloc(sizeof(int) * (argc - 1));
 	while (argv[i + 1] && i < argc)
@@ -91,6 +92,8 @@ int	gettime(t_var *my_var)
 
 int	print_msg(char *word, t_var *my_var, int philo_number)
 {
+	if (*my_var->is_died == 1)
+		return (0);
 	pthread_mutex_lock (&my_var->m_print);
 	if (*my_var->is_died != 1)
 		printf("%d %d %s \n", gettime(my_var), philo_number, word);

@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 17:46:26 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/30 23:35:09 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/03/31 15:33:50 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,21 @@
 
 int	philosophers_continue_the_code(t_var *my_var, int philo_number, int eating)
 {
-	
-	 pthread_mutex_lock (&my_var->m_forks[philo_number - 1]);
-	 print_msg("has taken a fork", my_var, philo_number);
+	pthread_mutex_lock (&my_var->m_forks[philo_number -1]);
+	print_msg("has taken a fork", my_var, philo_number);
 	if (condetion_of_one_philo(my_var) == 1)
 		return (0);
 	if (philo_number == my_var->args[0])
 	{
 		pthread_mutex_lock (&my_var->m_forks[0]);
-		my_var->dieing[philo_number - 1] = gettime(my_var);
 		print_msg("has taken a fork", my_var, philo_number);
 	}
 	else
 	{
 		pthread_mutex_lock (&my_var->m_forks[philo_number]);
-		my_var->dieing[philo_number - 1] = gettime(my_var);
 		print_msg("has taken a fork", my_var, philo_number);
 	}
+	my_var->dieing[philo_number - 1] = gettime(my_var);
 	philo_eat(my_var, philo_number);
 	eating++;
 	pthread_mutex_unlock (&my_var->m_forks[philo_number -1]);
@@ -41,37 +39,18 @@ int	philosophers_continue_the_code(t_var *my_var, int philo_number, int eating)
 	return (eating);
 }
 
-int	gettime02()
-{
-	int				time;
-	struct timeval	current_time;
-
-	gettimeofday(&current_time, NULL);
-	time = ((current_time.tv_sec * 1000)
-		+ ((current_time.tv_usec / 1000)));
-	return (time);
-}
-
-void timee(int T)
-{
-	int i = 0;
-
-	i = gettime02();
-	while(gettime02() - i < T)
-		usleep(100);
-}
-
 void	*philo_eat(t_var *my_var, int philo_number)
 {
 	int	i;
 
 	if (*my_var->is_died == 1)
 	{
+		usleep(10);
 		return (0);
 	}
 	print_msg("is eating", my_var, philo_number);
 	i = gettime(my_var);
-	while (gettime(my_var) - i <= *my_var->time_to_eat)
+	while (gettime(my_var) - i < (*my_var->time_to_eat))
 		usleep(100);
 	return (0);
 }
@@ -84,7 +63,7 @@ void	*philo_sleep(t_var *my_var, int philo_number)
 		return (0);
 	print_msg("is slepping", my_var, philo_number);
 	i = gettime(my_var);
-	while (gettime(my_var) - i <= *my_var->time_to_eat)
+	while (gettime(my_var) - i <= *my_var->time_to_sleep)
 		usleep(100);
 	if (*my_var->is_died == 1)
 		return (0);
@@ -105,7 +84,6 @@ int	loop_of_philo_watch(t_var *my_var)
 			pthread_mutex_lock(&my_var->m_print);
 			printf("%d %d died \n", gettime(my_var), i + 1);
 			*my_var->is_died = 1;
-			usleep(100000);
 			return (1);
 		}
 		i++;
@@ -132,6 +110,7 @@ int	philo_watch(void *var)
 			i++;
 		if (i == *my_var->philo_cont)
 			return (-1);
+			
 		gettimeofday(&current_time, NULL);
 		usleep(100);
 		if (loop_of_philo_watch(my_var) == 1)
