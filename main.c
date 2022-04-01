@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 00:46:35 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/04/01 13:53:39 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/04/01 20:27:18 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	*philo_loop(t_var *my_var, int philo_number, int eating)
 	}
 	while (*my_var->is_died != 1)
 	{
+		eating = philosophers_continue_the_code(my_var, philo_number, eating);
 		if (*my_var->philo_must_eat != -1)
 		{
 			if (eating == *my_var->philo_must_eat)
@@ -27,7 +28,6 @@ void	*philo_loop(t_var *my_var, int philo_number, int eating)
 				break ;
 			}
 		}
-		eating = philosophers_continue_the_code(my_var, philo_number, eating);
 		if (*my_var->is_died == 1)
 			return (0);
 		philo_sleep(my_var, philo_number);
