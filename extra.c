@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 17:42:30 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/03/31 16:16:59 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/04/01 13:52:36 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,13 @@ int	*creat(t_var *var, char **argv, int argc,
 	*var->time_to_die = var->args[1];
 	*var->time_to_eat = var->args[2];
 	*var->time_to_sleep = var->args[3];
+	*var->is_died = 0;
 	if (argv[5])
+	{
 		*var->philo_must_eat = var->args[4];
+		if (var->args[4] == 0)
+			*var->is_died = -405;
+	}
 	else
 		*var->philo_must_eat = -1;
 	table_of_m_forks_and_dieing(var);
@@ -74,7 +79,6 @@ int	*creat(t_var *var, char **argv, int argc,
 	gettimeofday(current_time, NULL);
 	*var->utime_to_zero = current_time->tv_usec;
 	*var->time_to_zero = current_time->tv_sec;
-	*var->is_died = 0;
 	*var->philo_num = 0;
 	return (var->args);
 }
